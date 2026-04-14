@@ -1,0 +1,138 @@
+# ⚔️ Aether Blade: Fragmented
+
+**Genre:** Top-Down Action Rogue-lite  
+**Engine:** Godot 4.4.1  
+**Platform:** PC
+
+---
+
+## 🎮 Core Gameplay Loop
+**Fight ➔ Loot ➔ Fight ➔ Upgrade ➔ Die ➔ Repeat**
+
+1. Enter a room and defeat enemies.
+2. Collect coins and rewards.
+3. Progress to the next room.
+4. Gain upgrades and power boosts.
+5. Fall in battle and restart stronger.
+
+---
+
+## 🧙 The Player: The Blade Mage
+
+The Blade Mage wields both steel and arcane power, combining swift melee attacks with devastating magical abilities.
+
+### 🗡️ Abilities
+
+| Type | Name | Description | Cooldown / Cost |
+|------|------|-------------|-----------------|
+| **Normal Attack** | Just Slash | A standard melee attack. | None |
+| **Skill 1** | Aether Slash | A fast 3-hit melee combo. The third strike releases a magical crescent wave forward. | 4 seconds |
+| **Skill 2 (Special)** | Blink Strike | Dash forward, turning invisible for 1 second and slashing all enemies in the path. | 100 Energy |
+| **Passive** | Mana Overload | Every 5th hit causes the next attack to explode, dealing AoE damage. | Passive |
+
+---
+
+## 🌀 Rogue-lite Mechanics
+
+### 🏠 Room System
+- Players progress through sequential combat rooms.
+- Clearing all enemies gives a chance for items to drop.
+- A shop appears every **3 rooms**.
+
+### 💎 Currency
+- **Blue Mana Shards** are dropped by defeated enemies.
+
+### 🛒 In-Room Shop
+
+| Item | Effect |
+|------|--------|
+| **Health Elixir** | Restores 30% HP |
+| **Sharpening Stone** | +2 Base Damage until death |
+| **Haste Potion** | Increases attack speed by 10% for the rest of the run |
+
+---
+
+## 🎰 Mini-Gacha System
+
+- **Currency:** Blue Mana Shards  
+- **Purpose:** Summon companions.
+- **Shard Rewards:** Based on the number of rooms cleared.
+
+---
+
+## 🐉 Companion System
+
+- Companions provide unique passive buffs.
+- Each companion enhances the player’s combat effectiveness.
+- Obtained through the Mini-Gacha system.
+
+---
+
+## 👾 Enemy Variety (Palette Swap Technique)
+
+| Enemy | Type | Description |
+|-------|------|-------------|
+| **The Glitch** | Melee | Fast with low HP. Uses the normal sprite. |
+| **Void Caster** | Ranged | Modulated purple. Stands still and fires magical orbs. |
+| **Corrupted Guard** | Tank | Scaled to 1.5× size, deep red modulation, and performs heavy attacks with screen shake. |
+
+---
+
+## 📊 Stats
+
+### 🧝 Player Stats (Level 1)
+
+| Stat | Value | Description |
+|------|-------|-------------|
+| HP | 100 | Standard health pool |
+| Base ATK | 10 | Damage per swing |
+| Crit Rate | 5% | Chance to deal critical damage |
+| Crit DMG | 150% | Critical damage multiplier |
+| Move Speed | 300 | Pixels per second |
+| Energy Max | 100 | Required for Ultimate |
+| Energy/Hit | 20 | Energy gained per successful strike |
+
+---
+
+### 👹 Enemy Stats (Level 1)
+
+| Stat | Value | Description |
+|------|-------|-------------|
+| HP | 30 | Dies in 3 normal hits |
+| Damage | 10 | Takes 10 hits to kill the player |
+| Speed | 200 | Slower than the player |
+
+---
+
+## 📈 Scaling Formulas
+
+### Enemy HP Scaling
+EnemyHP = BaseHP × (1.15 ^ (RoomNumber - 1))
+
+
+### Player Damage Calculation
+Damage = BaseATK × (1 + Sum of Bonus Percentages) + Flat Bonus
+
+
+---
+
+## 🛡️ The "Wall" Strategy
+
+To prevent players from becoming overpowered, **Elite Enemies** appear every 5 rooms.
+
+### Elite Mechanics
+- **2× HP**
+- **Stun Shield**
+- Shield must be hit **5 times** before taking full damage.
+
+This forces players to engage strategically rather than relying on brute force.
+
+---
+
+## 💰 Unused Coins System
+
+- Uncollected coins are automatically added to the player's inventory.
+- These coins can be used in the **Main Menu Shop** for permanent upgrades and purchases outside of runs.
+
+---
+
