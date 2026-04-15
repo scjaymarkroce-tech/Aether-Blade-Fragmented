@@ -84,12 +84,4 @@ Speed	200	Slower than the player
   - Stun Shield: The shield must be hit 5 times before the enemy starts taking full damage. This forces players to engage strategically rather than relying on pure DPS.
 
 🏛️ Development Approach (Godot)
-- Component-Based Scenes: The architecture will be built on Godot's scene composition system. Core functionalities will be created as separate, reusable scenes ("components") that can be instanced into other scenes.
-- Example: A MovementComponent.tscn will contain the CharacterBody2D and movement.gd script. It will use @export variables for speed, acceleration, etc., allowing easy tweaking in the editor.
-- Signal-Driven Communication: Components will communicate using Godot's built-in signal system. This decouples logic and promotes modularity.
-- Example: The HealthComponent will emit a health_depleted signal. The Player scene will listen for this signal and trigger the "death" sequence, without the HealthComponent needing to know anything about the Player's specific implementation.
-- Reusable Components to Build:
-- MovementComponent: Handles player and enemy movement.
-- HealthComponent: Manages HP, taking damage, and death.
-- StatsComponent: Holds and manages all character stats (ATK, Crit, etc.).
-- Hurtbox/HitboxComponent: Manages collision detection for dealing and receiving damage.
+- Since each character on the game no matter if player or enemy will have health, attack, movement speed, attack speed, crit rate, crit dmg, energy -  lets use a reusable component here that will allo us to import in each character and just edit the stats in the inspector for easier maintenance. 
