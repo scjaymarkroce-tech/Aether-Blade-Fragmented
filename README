@@ -1,138 +1,95 @@
-# ⚔️ Aether Blade: Fragmented
+⚔️ Aether Blade: Fragmented (Revised)
+- Genre: Top-Down Action Rogue-lite
+- Engine: Godot 4.4.1
+- Platform: PC
 
-**Genre:** Top-Down Action Rogue-lite  
-**Engine:** Godot 4.4.1  
-**Platform:** PC
+🎮 Core Gameplay Loop
+- Fight ➔ Loot ➔ Fight ➔ Upgrade ➔ Die ➔ Repeat
 
----
+- Enter a room and defeat all enemies to progress.
+- Collect Gold Coins and other in-run rewards.
+- Spend Gold at intermittent shops for temporary boosts.
+- After dying, receive Blue Mana Shards based on performance.
+- Use Shards for permanent companion unlocks and Gold for permanent upgrades in the main menu before starting the next run.
 
-## 🎮 Core Gameplay Loop
-**Fight ➔ Loot ➔ Fight ➔ Upgrade ➔ Die ➔ Repeat**
+🧙 The Player: The Blade Mage
+- The Blade Mage wields both steel and arcane power, combining swift melee attacks with devastating magical abilities.
+🗡️ Abilities
+- Type	Name	Description	Cooldown / Cost
+- Normal Attack	Just Slash	A standard melee attack.	None
+- Skill 1	Aether Slash	A fast 3-hit melee combo. The third strike releases a magical crescent wave forward.	4 seconds
+- Skill 2 (Special)	Blink Strike	Dash forward, turning invisible for 1 second and slashing all enemies in the path.	100 Energy
+- Passive	Mana Overload	Every 5th hit causes the next attack to explode, dealing AoE damage.	Passive
 
-1. Enter a room and defeat enemies.
-2. Collect coins and rewards.
-3. Progress to the next room.
-4. Gain upgrades and power boosts.
-5. Fall in battle and restart stronger.
-
----
-
-## 🧙 The Player: The Blade Mage
-
-The Blade Mage wields both steel and arcane power, combining swift melee attacks with devastating magical abilities.
-
-### 🗡️ Abilities
-
-| Type | Name | Description | Cooldown / Cost |
-|------|------|-------------|-----------------|
-| **Normal Attack** | Just Slash | A standard melee attack. | None |
-| **Skill 1** | Aether Slash | A fast 3-hit melee combo. The third strike releases a magical crescent wave forward. | 4 seconds |
-| **Skill 2 (Special)** | Blink Strike | Dash forward, turning invisible for 1 second and slashing all enemies in the path. | 100 Energy |
-| **Passive** | Mana Overload | Every 5th hit causes the next attack to explode, dealing AoE damage. | Passive |
-
----
-
-## 🌀 Rogue-lite Mechanics
-
-### 🏠 Room System
+🌀 Rogue-lite Mechanics
+🏠 Room System
 - Players progress through sequential combat rooms.
-- Clearing all enemies gives a chance for items to drop.
-- A shop appears every **3 rooms**.
+- Clearing all enemies unlocks the path to the next room and provides rewards.
+- A Shop appears every 3 rooms, allowing players to spend Gold.
 
-### 💎 Currency
-- **Blue Mana Shards** are dropped by defeated enemies.
+💰 Currencies & Economy
+- Gold Coins: Dropped by defeated enemies and awarded for clearing rooms. Used to purchase temporary items and upgrades from the in-run Shop. Uncollected coins are automatically added to the player's inventory and can be used in the Main Menu Shop for permanent upgrades.
+- Blue Mana Shards: A premium currency awarded to the player after a run ends. The amount is calculated based on the number of rooms cleared. Shards are used exclusively for the Companion Gacha System. This separation limits how many companions can be acquired per run, making it a strategic meta-progression choice.
 
-### 🛒 In-Room Shop
+🛒 In-Run Shop
+(Accessed every 3 rooms, uses Gold Coins)
+- Item	Effect
+- Health Elixir	Restores 30% HP
+- Sharpening Stone	+2 Base Damage (until death)
+- Haste Potion	Increases attack speed by 10% (for the rest of the run)
 
-| Item | Effect |
-|------|--------|
-| **Health Elixir** | Restores 30% HP |
-| **Sharpening Stone** | +2 Base Damage until death |
-| **Haste Potion** | Increases attack speed by 10% for the rest of the run |
+🎰 Companion Gacha System
+- Currency: Blue Mana Shards
+- Purpose: Summon permanent companions who provide passive buffs.
+- Duplicate Summons: If a player summons a companion they already own, it will be converted into Companion Essence. This special resource is used to level up or enhance existing companions, unlocking improved stats or more powerful passive abilities (a "constellation" style system).
 
----
+🐉 Companion System
+- Companions are permanent unlocks obtained through the Gacha system.
+- Players can choose which companion to bring on a run.
+- Each companion provides unique passive buffs that enhance the player’s combat effectiveness.
+- Companions can be leveled up using Companion Essence.
 
-## 🎰 Mini-Gacha System
+👾 Enemy Variety (Palette Swap Technique)
+- Enemy	Type	Description
+- The Glitch	Melee	Fast with low HP. Uses the normal sprite.
+- Void Caster	Ranged	Modulated purple. Stands still and fires magical orbs.
+- Corrupted Guard	Tank	Scaled to 1.5× size, deep red modulation, and performs heavy attacks with screen shake.
 
-- **Currency:** Blue Mana Shards  
-- **Purpose:** Summon companions.
-- **Shard Rewards:** Based on the number of rooms cleared.
+📊 Stats
+🧝 Player Stats (Level 1)
+Stat	Value	Description
+HP	100	Standard health pool
+Base ATK	10	Damage per swing
+Crit Rate	5%	Chance to deal critical damage
+Crit DMG	150%	Critical damage multiplier
+Move Speed	300	Pixels per second
+Energy Max	100	Required for Special Skill
+Energy/Hit	20	Energy gained per successful strike
 
----
+👹 Enemy Stats (Level 1)
+Stat	Value	Description
+HP	30	Dies in 3 normal hits
+Damage	10	Takes 10 hits to kill the player
+Speed	200	Slower than the player
 
-## 🐉 Companion System
+📈 Scaling Formulas
+- Enemy HP Scaling: EnemyHP = BaseHP * (1.15 ^ (RoomNumber - 1))
+- Player Damage Calculation: Damage = BaseATK * (1 + Sum of Bonus Percentages) + FlatBonus
+- Blue Mana Shard Reward: Shards = floor(RoomsCleared / 2) + bonus (Example formula, can be refined)
 
-- Companions provide unique passive buffs.
-- Each companion enhances the player’s combat effectiveness.
-- Obtained through the Mini-Gacha system.
+🛡️ The "Wall" Strategy
+- To prevent players from becoming overpowered and to test their build, Elite Enemies appear every 5 rooms.
+- Elite Mechanics
+  - 2× HP of a normal enemy for that room level.
+  - Stun Shield: The shield must be hit 5 times before the enemy starts taking full damage. This forces players to engage strategically rather than relying on pure DPS.
 
----
-
-## 👾 Enemy Variety (Palette Swap Technique)
-
-| Enemy | Type | Description |
-|-------|------|-------------|
-| **The Glitch** | Melee | Fast with low HP. Uses the normal sprite. |
-| **Void Caster** | Ranged | Modulated purple. Stands still and fires magical orbs. |
-| **Corrupted Guard** | Tank | Scaled to 1.5× size, deep red modulation, and performs heavy attacks with screen shake. |
-
----
-
-## 📊 Stats
-
-### 🧝 Player Stats (Level 1)
-
-| Stat | Value | Description |
-|------|-------|-------------|
-| HP | 100 | Standard health pool |
-| Base ATK | 10 | Damage per swing |
-| Crit Rate | 5% | Chance to deal critical damage |
-| Crit DMG | 150% | Critical damage multiplier |
-| Move Speed | 300 | Pixels per second |
-| Energy Max | 100 | Required for Ultimate |
-| Energy/Hit | 20 | Energy gained per successful strike |
-
----
-
-### 👹 Enemy Stats (Level 1)
-
-| Stat | Value | Description |
-|------|-------|-------------|
-| HP | 30 | Dies in 3 normal hits |
-| Damage | 10 | Takes 10 hits to kill the player |
-| Speed | 200 | Slower than the player |
-
----
-
-## 📈 Scaling Formulas
-
-### Enemy HP Scaling
-EnemyHP = BaseHP × (1.15 ^ (RoomNumber - 1))
-
-
-### Player Damage Calculation
-Damage = BaseATK × (1 + Sum of Bonus Percentages) + Flat Bonus
-
-
----
-
-## 🛡️ The "Wall" Strategy
-
-To prevent players from becoming overpowered, **Elite Enemies** appear every 5 rooms.
-
-### Elite Mechanics
-- **2× HP**
-- **Stun Shield**
-- Shield must be hit **5 times** before taking full damage.
-
-This forces players to engage strategically rather than relying on brute force.
-
----
-
-## 💰 Unused Coins System
-
-- Uncollected coins are automatically added to the player's inventory.
-- These coins can be used in the **Main Menu Shop** for permanent upgrades and purchases outside of runs.
-
----
-
+🏛️ Development Approach (Godot)
+- Component-Based Scenes: The architecture will be built on Godot's scene composition system. Core functionalities will be created as separate, reusable scenes ("components") that can be instanced into other scenes.
+- Example: A MovementComponent.tscn will contain the CharacterBody2D and movement.gd script. It will use @export variables for speed, acceleration, etc., allowing easy tweaking in the editor.
+- Signal-Driven Communication: Components will communicate using Godot's built-in signal system. This decouples logic and promotes modularity.
+- Example: The HealthComponent will emit a health_depleted signal. The Player scene will listen for this signal and trigger the "death" sequence, without the HealthComponent needing to know anything about the Player's specific implementation.
+- Reusable Components to Build:
+- MovementComponent: Handles player and enemy movement.
+- HealthComponent: Manages HP, taking damage, and death.
+- StatsComponent: Holds and manages all character stats (ATK, Crit, etc.).
+- Hurtbox/HitboxComponent: Manages collision detection for dealing and receiving damage.
