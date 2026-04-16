@@ -38,10 +38,32 @@
 - Sharpening Stone	+2 Base Damage (until death)
 - Haste Potion	Increases attack speed by 10% (for the rest of the run)
 
-🎰 Companion Gacha System
+🎰 Companion and Equipment Gacha System
 - Currency: Blue Mana Shards
 - Purpose: Summon permanent companions who provide passive buffs.
 - Duplicate Summons: If a player summons a companion they already own, it will be converted into Companion Essence. This special resource is used to level up or enhance existing companions, unlocking improved stats or more powerful passive abilities (a "constellation" style system).
+
+📈 Gacha System
+- Game has a max pity of 70 pulls
+- Companions and Equipment (5 stars) has a 1% chance of getting from 1-50 pity
+- As the player pity reaches 51, the 1% chance will become 3.5% (1% + 2.5%), each 1 pull as the player reaches 51+ will add 2.5%
+- Pull 70th is going to be the guaranteed banner highlight companion/equipment depending on where the player has pulled
+- For every 10th pull = guaranteed 4 star, but when the player still not reaches 10 pulls, the chance of getting 4 star is 6%
+
+List of 4 stars: (we will make it later on)
+- 4x Large Health Potion (Type: Item)
+- 2x Large Speed Potion (Type: Item)
+- 2x Large Attack Buff (Type: Item)
+- 2x Large Health Buff (Type: Item)
+- 1x Massive Critrate Buff (Type: Item)
+- 1x Massive Critdamage Buff (Type: Item)
+- Random 1 Apprentice Equipment (Type: Equipment)
+
+Apprentice Equipments consists of:
+- Headgear
+- Cloak
+- Ring
+- Shoes
 
 🐉 Companion System
 - Companions are permanent unlocks obtained through the Gacha system.
@@ -85,3 +107,8 @@ Speed	200	Slower than the player
 
 🏛️ Development Approach (Godot)
 - Since each character on the game no matter if player or enemy will have health, attack, movement speed, attack speed, crit rate, crit dmg, energy -  lets use a reusable component here that will allo us to import in each character and just edit the stats in the inspector for easier maintenance. 
+
+
+Our Global Variables that we currently have:
+1. PlayerInventory (it has the items, gold, shards, and equipments of the player)
+2. PlayerStats (these are the stats of the player, health, attack, speed, critrate, critdamage (there might be missing))
