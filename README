@@ -7,36 +7,28 @@
 - Fight ➔ Loot ➔ Fight ➔ Upgrade ➔ Die ➔ Repeat
 
 - Enter a room and defeat all enemies to progress.
-- Collect Gold Coins and other in-run rewards.
+- Collect Golds and Shards.
 - Spend Gold at intermittent shops for temporary boosts.
 - After dying, receive Blue Mana Shards based on performance.
-- Use Shards for permanent companion unlocks and Gold for permanent upgrades in the main menu before starting the next run.
+- Use Shards for permanent companion unlocks and Gold for buying potions in the shop.
 
-🧙 The Player: The Blade Mage
-- The Blade Mage wields both steel and arcane power, combining swift melee attacks with devastating magical abilities.
+🧙 The Player: The Water Mage
+- The Mage who uses arcane power.
 🗡️ Abilities
 - Type	Name	Description	Cooldown / Cost
-- Normal Attack	Just Slash	A standard melee attack.	None
-- Skill 1	Aether Slash	A fast 3-hit melee combo. The third strike releases a magical crescent wave forward.	4 seconds
-- Skill 2 (Special)	Blink Strike	Dash forward, turning invisible for 1 second and slashing all enemies in the path.	100 Energy
-- Passive	Mana Overload	Every 5th hit causes the next attack to explode, dealing AoE damage.	Passive
+- Normal Attack	Fires a water ball.	None
+- Skill 1	Tidal Call	Summons a water circle on the ground that stays for 5 seconds. That water circle heals the player 10hp/seconds.	10 seconds
+- Skill 2 (Special)	Summons a rain that summons a water slimes (1 slime every 2 seconds) and giving extra 20% bonus attack for the player for 10 seconds. Slime disappears after 10 seconds. 
+- Passive	Mana Overload	Every 4th hit causes the next attack to fire 3 water ball instead of 1.	Passive
 
 🌀 Rogue-lite Mechanics
 🏠 Room System
 - Players progress through sequential combat rooms.
 - Clearing all enemies unlocks the path to the next room and provides rewards.
-- A Shop appears every 3 rooms, allowing players to spend Gold.
 
 💰 Currencies & Economy
-- Gold Coins: Dropped by defeated enemies and awarded for clearing rooms. Used to purchase temporary items and upgrades from the in-run Shop. Uncollected coins are automatically added to the player's inventory and can be used in the Main Menu Shop for permanent upgrades.
+- Gold Coins: Dropped by defeated enemies and awarded for clearing rooms. Used to purchase potions in the shop. 
 - Blue Mana Shards: A premium currency awarded to the player after a run ends. The amount is calculated based on the number of rooms cleared. Shards are used exclusively for the Companion Gacha System. This separation limits how many companions can be acquired per run, making it a strategic meta-progression choice.
-
-🛒 In-Run Shop
-(Accessed every 3 rooms, uses Gold Coins)
-- Item	Effect
-- Health Elixir	Restores 30% HP
-- Sharpening Stone	+2 Base Damage (until death)
-- Haste Potion	Increases attack speed by 10% (for the rest of the run)
 
 🎰 Companion and Equipment Gacha System
 - Currency: Blue Mana Shards
@@ -49,15 +41,6 @@
 - As the player pity reaches 51, the 1% chance will become 3.5% (1% + 2.5%), each 1 pull as the player reaches 51+ will add 2.5%
 - Pull 70th is going to be the guaranteed banner highlight companion/equipment depending on where the player has pulled
 - For every 10th pull = guaranteed 4 star, but when the player still not reaches 10 pulls, the chance of getting 4 star is 6%
-
-List of 4 stars: (we will make it later on)
-- 4x Large Health Potion (Type: Item)
-- 2x Large Speed Potion (Type: Item)
-- 2x Large Attack Buff (Type: Item)
-- 2x Large Health Buff (Type: Item)
-- 1x Massive Critrate Buff (Type: Item)
-- 1x Massive Critdamage Buff (Type: Item)
-- Random 1 Apprentice Equipment (Type: Equipment)
 
 Apprentice Equipments consists of:
 - Headgear
