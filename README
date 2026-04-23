@@ -100,3 +100,18 @@ Ways of obtaining shards:
 - by completing a room (first clear 200, already cleared 50)
 - killing boss should now give a 40 shards (elites and normal enemies only gives gold)
 - through opening chests (we dont have that yet)
+
+Modifiers:
+1.	Blood Money – current room (+80% gold drop and 5% hp loss every 3 secs) – WORKING
+2.	Glass Canon – current room (+200% dmg, enemies 30% faster) – WORKING
+3.	Plague Pact – (player and enemies take 5% max hp damage every 3 seconds) – WORKING
+4.	Shielded Fury– current room (Gain 20% max HP as shield per kill. While shielded, deal +10% damage) – WORKING
+5.	Inverted Soul – current room (heal damages, damage heals) – WORKING 
+6.	Worthy Opponents – current room (all enemies are elite but rewards +30%) – WORKING
+7.	Living On Edge – current room (starts at 1hp, gain 10% max hp as shield per kill) – WORKING
+8.	High Stakes – current room (double rewards but boss is guaranteed) – WORKING
+9.	Berserker – whole run (+100% damage but hp is reduced to 30%) – WORKING 
+10.	On a roll – whole run (+7% attack per kill, resets when hit) – WORKING
+11.	Endless Growth – whole run (+1% attack damage per kill, no cap) - WORKING
+12.	Iron Will – whole run (cannot heal for the whole run but +30 shards each room) - WORKING
+
