@@ -95,3 +95,8 @@ Speed	200	Slower than the player
 Our Global Variables that we currently have:
 1. PlayerInventory (it has the items, gold, shards, and equipments of the player)
 2. PlayerStats (these are the stats of the player, health, attack, speed, critrate, critdamage (there might be missing))
+
+Ways of obtaining shards:
+- by completing a room (first clear 200, already cleared 50)
+- killing boss should now give a 40 shards (elites and normal enemies only gives gold)
+- through opening chests (we dont have that yet)
