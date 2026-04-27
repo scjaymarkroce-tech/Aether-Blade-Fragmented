@@ -1,4 +1,4 @@
-⚔️ Aether Blade: Fragmented
+⚔️ Aether Blade: Fragmented (Updated)
 Genre: Top-Down Action Rogue-lite
 Engine: Godot 4.4.1
 Platform: PC
@@ -14,18 +14,18 @@ Fight → Loot → Fight → Upgrade → Die → Repeat
 🧙 The Player: The Water Mage
 Abilities:
 - Normal Attack: Fires a water ball (no cooldown)
-- Passive (Mana Overload): Every 4th attack fires 3 water balls in a 
+- Passive (Mana Overload): Every 4th attack fires 3 water balls in a
   parabolic burst instead of 1
-- Skill E (Tidal Field): Summons a water circle for 5 seconds. 
+- Skill E (Tidal Field): Summons a water circle for 5 seconds.
   Heals player 10 HP/sec, damages enemies inside. CD: 10s
-- Skill Q (King's Call): Summons up to 5 water slimes (1 every 2s) 
-  that chase enemies. Grants +20% attack for 30s. Slimes mirror 
+- Skill Q (King's Call): Summons up to 5 water slimes (1 every 2s)
+  that chase enemies. Grants +20% attack for 30s. Slimes mirror
   player stats at 30%. CD: 45s
-- Dash (Shift): Double dash with invincibility frames, water splash 
+- Dash (Shift): Double dash with invincibility frames, water splash
   effect. Each charge recovers after 3.5s
-- Hold Attack + Move Mouse: Places ice spikes on map (max 10, 
+- Hold Attack + Move Mouse: Places ice spikes on map (max 10,
   or 25 with Frozen Arsenal modifier)
-- R Key: Recalls all placed ice spikes, dealing pass-through damage 
+- R Key: Recalls all placed ice spikes, dealing pass-through damage
   to enemies on return path
 
 📊 Player Stats
@@ -45,7 +45,7 @@ Gold: Dropped by enemies (Normal: 3-10, Elite: 11-20, Boss: 0)
      Used for shop purchases
 Blue Mana Shards:
 - Room first clear: 200 shards
-- Room repeat clear: 50 shards  
+- Room repeat clear: 50 shards
 - Boss kill: 40 shards
 - Iron Will modifier bonus: +30 per room
 - Skip modifier: doubles run rewards
@@ -79,7 +79,7 @@ Special (10% chance):
 
 🌍 Map Events (triggered after modifier choice, current room only)
 - None (50% chance): No effect
-- Rainstorm (12.5%): +700% attack/HP, +400% speed, rain visual, 
+- Rainstorm (12.5%): +700% attack/HP, +400% speed, rain visual,
   slimes are 1.4x bigger and 3x stronger
 - Extra Darkness (12.5%): Spotlight radius shrinks
 - Blood Moon (12.5%): All enemies +20% HP/ATK/Speed, red tint
@@ -99,13 +99,13 @@ Enemy Types:
            backs up + shields when player gets too close
   Phase 2: Continuous stone rain, faster when player is close
   Transition: On phase 1 death → 5 incubations scatter on map.
-             Player has 30s to destroy them. Each destroyed 
-             incubation = 20% less HP in phase 2. If none 
+             Player has 30s to destroy them. Each destroyed
+             incubation = 20% less HP in phase 2. If none
              destroyed = full HP phase 2.
 
 Spawner System (ZoneSpawner + RoomSpawner):
 - Normal zone: 4 normal enemies
-- Elite zone: 2 elite enemies  
+- Elite zone: 2 elite enemies
 - Boss zone: 1 boss + 2 normal
 - Mixed (20% chance): 1 boss + 1 elite OR 1 elite + 2 normal
 - Guaranteed 2 elites per room
@@ -114,45 +114,169 @@ Spawner System (ZoneSpawner + RoomSpawner):
 🐉 Companion System
 - Permanent unlocks via Gacha (Blue Mana Shards)
 - One companion active per run
-- Provide passive buffs (HP, ATK, Crit Rate, Crit DMG, Speed)
-- Current companions: Lirien (heal + death block), 
-  Grumoss (shield + damage reduction)
-- Duplicate pulls → Companion Essence for upgrades
+- Companions fly beside the player when equipped (scene-based)
+- Provide passive stat buffs (HP, ATK, Crit Rate, Crit DMG, Speed)
+- Duplicate pulls → Companion Essence (used for future upgrades)
+
+Current Companions:
+- Lirien: +15 ATK buff. Passive: heals 15 HP every 20s,
+  blocks one killing blow (4 min CD)
+- Grumoss: +30 HP buff. Passive: grants shield every 20s
+  (20% of ATK), up to 20% DMG reduction when not taking hits
+  (1% per 5s, resets on damage taken)
+
+Companion Resources: res://resources/companions/
+Companion Art: res://assets/companion/
 
 🎰 Gacha System
-- Max pity: 70 pulls
+- Max pity: 70 pulls per banner
 - 5-star rate: 1% pulls 1-50, +2.5% per pull from 51+
 - Pull 70: Guaranteed 5-star banner highlight
 - Every 10th pull: Guaranteed 4-star
 - 4-star base rate: 6%
+- Separate pity tracker per banner (companion vs equipment)
+- 5-star companions trigger fullscreen reveal animation with art
 
-🛠️ Technical Architecture
-Autoloads:
-- PlayerStats: All player stats + buff system + passive manager hooks
-- PlayerInventory: Gold, shards, items, equipment, companion slots
-- RunState: Run progress, kill tracking, reward tracking, 
+Banners:
+- Companion Banner: 5-star companions (Lirien, Grumoss)
+- Equipment Banner: 5-star equipment (coming soon)
+
+Pull Results:
+- 5-star: Sand gold card, fullscreen white-gold flash + companion art reveal
+- 4-star: Purple card, amber glow effect
+- 3-star: Dusty grey card (Aether Dust)
+
+4-star Pool (auto-loaded from resource folders):
+Items: res://resources/items/
+- Large Health Potion (heal_hp)
+- Large Speed Potion (buff_speed)
+- Large Attack Buff (buff_attack)
+- Large Health Buff (buff_health)
+- Massive Crit Rate Buff (buff_critrate)
+- Massive Crit DMG Buff (buff_critdamage)
+
+Equipment: res://resources/equipment/
+- Apprentice Headgear, Cloak, Ring, Shoes
+
+5-star Equipment: res://resources/equipment_5star/
+
+🎒 Bag System
+Accessible as a popup from Main Menu (no scene change).
+Three tabs:
+
+Companion Tab:
+- Active companion display (icon, name, buff description)
+- Companion Essence counter (upgrades coming soon)
+- Grid of owned companions (5 columns)
+- Click card → popup with stats, passive info, Equip/Unequip
+
+Equipment Tab:
+- Active gear panel (4 slots: Headgear, Cloak, Ring, Shoes)
+- Click active gear → popup to unequip
+- Bag grid separated by slot type with headers
+- Click bag card → popup to equip
+
+Items Tab:
+- Grid grouped by category (Heal, Attack, Speed, Health,
+  Crit Rate, Crit Damage)
+- Category headers auto-hide when empty
+- Click card → popup with description and Use button
+- Companion Essence hidden here, shown in Companion tab
+
+🏪 In-Run Shop (every 3 rooms, uses Gold)
+- Health Elixir: Restores 30% HP
+- Sharpening Stone: +2 Base Damage (until death)
+- Haste Potion: +10% attack speed (rest of run)
+
+🏛️ Technical Architecture
+
+Autoloads (res://globals/):
+- PlayerStats: Final stats (base + equipment + companion + item buffs)
+  Handles: recalculate(), take_damage(), heal(), apply_item(),
+           gain_energy(), spend_energy(), timed buff countdown,
+           clear_run_buffs() on run end
+- PlayerInventory: Gold, shards, items dictionary, bag_equipment array,
+  active_equipment dictionary (4 slots), companions_owned array,
+  active_companion slot
+- GachaSystem: Pull logic, pity tracking (per banner), pool auto-loading
+  from resource folders, 5-star/4-star/3-star result generation
+- PassiveManager: Companion passive logic per process tick
+  Lirien: heal timer, death block cooldown
+  Grumoss: shield timer, damage reduction accumulator,
+           damage notification hook
+- CursorManager: Custom cursor (50x50), applied globally
+- RunState: Run progress, kill tracking, reward tracking,
             journal stats, death penalty calculation
 - ModifierSystem: Active modifier tracking, effect application,
                   kill/hit/heal hooks, enemy stat modification
 - EventSystem: Map event rolling, activation, frost zone physics,
                spotlight control, enemy stat modification
-- PassiveManager: Companion passive logic (Lirien, Grumoss)
 
-Components (reusable):
-- StatsComponent: HP, ATK, Speed, Crit, Energy for any character
+Components (res://scenes/characters/):
+- StatsComponent: Shared HP, ATK, Speed, Crit, Energy node
+  Used by all enemies. Players use PlayerStats autoload instead.
 - ZoneDetector: Enemy zone awareness, return-home behavior,
                 obstacle avoidance, healing on return
 - SkillManager: Player skill cooldowns and casting
 
+Resources:
+- res://resources/items/          → ItemData .tres files
+- res://resources/equipment/      → EquipmentData .tres (4-star)
+- res://resources/equipment_5star/→ EquipmentData .tres (5-star)
+- res://resources/companions/     → CompanionData .tres files
+- res://resources/modifiers/      → RunModifier .tres files
+
+Key Classes:
+- ItemData (extends Resource): item_name, description, icon,
+  effect_type (enum), effect_value, effect_duration (seconds,
+  0 = permanent for run)
+- EquipmentData (extends Resource): equipment_name, slot (enum:
+  headgear/cloak/ring/shoes), icon, bonus stats (health, attack,
+  crit_rate, crit_damage, speed)
+- CompanionData (extends Resource): companion_name, description,
+  icon, full_art, companion_scene (PackedScene, for fly-beside
+  visual), buff_type (enum), buff_value, buff_description,
+  passive_type (enum: none/lirien_passive/grumoss_passive)
+
 Key Scenes:
-- res://scenes/globals/ → autoload scripts
+- res://scenes/globals/       → autoload scripts
 - res://scenes/characters/player/ → player + skills
 - res://scenes/characters/enemies/ → enemy scenes
-- res://scenes/ui/ → HUD, modifier picker, portal choice, 
-                     end run screen, event banner
-- res://scenes/game/rooms/ → room1, room2, room3
-- res://resources/modifiers/ → RunModifier .tres files
-- res://shaders/ → spotlight shader
-- res://scripts/effects/ → visual effect scripts
-                           (rain, snow, dash splash, 
-                            ice hit, water hit ripple)
+- res://scenes/ui/            → HUD, modifier picker, portal choice,
+                                 end run screen, event banner
+- res://scenes/game/          → main_menu, pull_scene, bag_scene,
+                                 rooms/room1, room2, room3
+- res://shaders/              → spotlight shader
+- res://scripts/effects/      → visual effect scripts
+                                (rain, snow, dash splash,
+                                 ice hit, water hit ripple)
+- res://assets/companion/     → companion art per folder
+- res://assets/ui/            → cursor, UI assets
+
+🖥️ UI Scenes
+
+Main Menu (res://scenes/game/main_menu.tscn):
+- Buttons: Play, Pull, Bag (popup), Enemies (coming soon), Quit
+- Gold and Blue Shards display (live from PlayerInventory)
+- Meteor shower background effect
+- Bag opens as popup (no scene change)
+
+Pull Scene (res://scenes/game/pull_scene.tscn):
+- Two banners: Companion and Equipment
+- Slide transition between banners (fade + cubic ease)
+- Spinning rune circles ambient effect (full screen, sand gold)
+- Per-banner pity label (Pity: X/70)
+- Pull 1x (160 shards) and 10x (1600 shards) buttons
+- Details popup per banner
+- Result grid (5 columns, color-coded by rarity)
+- 5-star companion: fullscreen white-gold flash + art reveal (4s)
+- Sand/desert color theme throughout
+
+Bag Scene (res://scenes/game/bag_scene.tscn):
+- Opens as popup from Main Menu
+- Spinning rune circles ambient effect (brighter for black bg)
+- Three tabs: Companion, Equipment, Items
+- All lists displayed as 5-column grids with icon slots
+- Popup card system for equip/unequip/use actions
+- Equipment separated by slot type with headers
+- Items separated by effect category with color-coded borders
