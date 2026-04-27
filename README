@@ -1,117 +1,158 @@
-⚔️ Aether Blade: Fragmented (Revised)
-- Genre: Top-Down Action Rogue-lite
-- Engine: Godot 4.4.1
-- Platform: PC
+⚔️ Aether Blade: Fragmented
+Genre: Top-Down Action Rogue-lite
+Engine: Godot 4.4.1
+Platform: PC
 
 🎮 Core Gameplay Loop
-- Fight ➔ Loot ➔ Fight ➔ Upgrade ➔ Die ➔ Repeat
-
-- Enter a room and defeat all enemies to progress.
-- Collect Golds and Shards.
-- Spend Gold at intermittent shops for temporary boosts.
-- After dying, receive Blue Mana Shards based on performance.
-- Use Shards for permanent companion unlocks and Gold for buying potions in the shop.
+Fight → Loot → Fight → Upgrade → Die → Repeat
+- Enter a room, defeat all enemies to progress
+- Collect Gold and Blue Mana Shards
+- Spend Gold at shops for temporary boosts
+- After dying, receive Shards based on performance
+- Use Shards for permanent companion/equipment unlocks via Gacha
 
 🧙 The Player: The Water Mage
-- The Mage who uses arcane power.
-🗡️ Abilities
-- Type	Name	Description	Cooldown / Cost
-- Normal Attack	Fires a water ball.	None
-- Skill 1	Tidal Call	Summons a water circle on the ground that stays for 5 seconds. That water circle heals the player 10hp/seconds.	10 seconds
-- Skill 2 (Special)	Summons a rain that summons a water slimes (1 slime every 2 seconds) and giving extra 20% bonus attack for the player for 10 seconds. Slime disappears after 10 seconds. 
-- Passive	Mana Overload	Every 4th hit causes the next attack to fire 3 water ball instead of 1.	Passive
+Abilities:
+- Normal Attack: Fires a water ball (no cooldown)
+- Passive (Mana Overload): Every 4th attack fires 3 water balls in a 
+  parabolic burst instead of 1
+- Skill E (Tidal Field): Summons a water circle for 5 seconds. 
+  Heals player 10 HP/sec, damages enemies inside. CD: 10s
+- Skill Q (King's Call): Summons up to 5 water slimes (1 every 2s) 
+  that chase enemies. Grants +20% attack for 30s. Slimes mirror 
+  player stats at 30%. CD: 45s
+- Dash (Shift): Double dash with invincibility frames, water splash 
+  effect. Each charge recovers after 3.5s
+- Hold Attack + Move Mouse: Places ice spikes on map (max 10, 
+  or 25 with Frozen Arsenal modifier)
+- R Key: Recalls all placed ice spikes, dealing pass-through damage 
+  to enemies on return path
 
-🌀 Rogue-lite Mechanics
+📊 Player Stats
+HP: 100 | Base ATK: 10 | Crit Rate: 5% | Crit DMG: 150%
+Move Speed: 300 | Energy Max: 100
+
+🌀 Rogue-lite Systems
+
 🏠 Room System
-- Players progress through sequential combat rooms.
-- Clearing all enemies unlocks the path to the next room and provides rewards.
+- 3 rooms (room1, room2, room3) randomized per run
+- Each room has enemy zones with auto-spawning enemies
+- Room clear triggers portal appearance
+- Portal gives choice: End Run or Continue (with death penalty risk)
 
-💰 Currencies & Economy
-- Gold Coins: Dropped by defeated enemies and awarded for clearing rooms. Used to purchase potions in the shop. 
-- Blue Mana Shards: A premium currency awarded to the player after a run ends. The amount is calculated based on the number of rooms cleared. Shards are used exclusively for the Companion Gacha System. This separation limits how many companions can be acquired per run, making it a strategic meta-progression choice.
+💰 Economy
+Gold: Dropped by enemies (Normal: 3-10, Elite: 11-20, Boss: 0)
+     Used for shop purchases
+Blue Mana Shards:
+- Room first clear: 200 shards
+- Room repeat clear: 50 shards  
+- Boss kill: 40 shards
+- Iron Will modifier bonus: +30 per room
+- Skip modifier: doubles run rewards
+- Used for Gacha pulls
 
-🎰 Companion and Equipment Gacha System
-- Currency: Blue Mana Shards
-- Purpose: Summon permanent companions who provide passive buffs.
-- Duplicate Summons: If a player summons a companion they already own, it will be converted into Companion Essence. This special resource is used to level up or enhance existing companions, unlocking improved stats or more powerful passive abilities (a "constellation" style system).
+⚠️ Death Penalty
+- Dying loses 10-40% of run-earned gold and shards
+- Scales: 10% per room cleared, capped at 40%
+- Only affects earnings from current run, not pre-run inventory
 
-📈 Gacha System
-- Game has a max pity of 70 pulls
-- Companions and Equipment (5 stars) has a 1% chance of getting from 1-50 pity
-- As the player pity reaches 51, the 1% chance will become 3.5% (1% + 2.5%), each 1 pull as the player reaches 51+ will add 2.5%
-- Pull 70th is going to be the guaranteed banner highlight companion/equipment depending on where the player has pulled
-- For every 10th pull = guaranteed 4 star, but when the player still not reaches 10 pulls, the chance of getting 4 star is 6%
+🎲 Modifier System (chosen each room after loading)
+Current Room Modifiers:
+1. Blood Money: +80% gold, -5% max HP/3s DoT
+2. Glass Cannon: +200% damage, enemies 30% faster
+3. Plague Pact: Player and enemies take 5% max HP damage/3s
+4. Shielded Fury: +20% max HP shield per kill, +10% dmg while shielded
+5. Inverted Soul: Healing damages, damage heals
+6. Worthy Opponents: All enemies become elite, +30% rewards
+7. Living on Edge: Start at 1HP, gain 10% max HP shield per kill
+8. High Stakes: Double rewards, guaranteed boss spawn
+9. Frozen Arsenal: Ice spike cap increased to 25
 
-Apprentice Equipments consists of:
-- Headgear
-- Cloak
-- Ring
-- Shoes
+Whole Run Modifiers:
+1. Berserker: +100% damage, max HP reduced to 30%
+2. On a Roll: +7% attack per kill, resets on hit
+3. Endless Growth: +10% damage per kill, no cap
+4. Iron Will: Cannot heal, +30 shards per room
+
+Special (10% chance):
+- Skip: No modifier, double rewards at end of room
+
+🌍 Map Events (triggered after modifier choice, current room only)
+- None (50% chance): No effect
+- Rainstorm (12.5%): +700% attack/HP, +400% speed, rain visual, 
+  slimes are 1.4x bigger and 3x stronger
+- Extra Darkness (12.5%): Spotlight radius shrinks
+- Blood Moon (12.5%): All enemies +20% HP/ATK/Speed, red tint
+- Frost Zone (12.5%): Slippery movement, snow visual, blue tint
+
+👾 Enemy System
+Enemies use StatsComponent for all stats.
+Zone System: EnemyZone (Polygon2D shapes) + ZoneDetector component
+GroupZone: Auto-injects ZoneDetector into child enemies
+
+Enemy Types:
+- Glitch (Normal): Melee chaser, low HP
+- Bird/Vulture (Elite): Fly-circle + air wave attack pattern,
+  air-type color effects
+- Golem (Boss): Two-phase boss
+  Phase 1: Maintains range, channels stone burst every 4s,
+           backs up + shields when player gets too close
+  Phase 2: Continuous stone rain, faster when player is close
+  Transition: On phase 1 death → 5 incubations scatter on map.
+             Player has 30s to destroy them. Each destroyed 
+             incubation = 20% less HP in phase 2. If none 
+             destroyed = full HP phase 2.
+
+Spawner System (ZoneSpawner + RoomSpawner):
+- Normal zone: 4 normal enemies
+- Elite zone: 2 elite enemies  
+- Boss zone: 1 boss + 2 normal
+- Mixed (20% chance): 1 boss + 1 elite OR 1 elite + 2 normal
+- Guaranteed 2 elites per room
+- Boss guaranteed every 5 rooms or 10% random chance
 
 🐉 Companion System
-- Companions are permanent unlocks obtained through the Gacha system.
-- Players can choose which companion to bring on a run.
-- Each companion provides unique passive buffs that enhance the player’s combat effectiveness.
-- Companions can be leveled up using Companion Essence.
+- Permanent unlocks via Gacha (Blue Mana Shards)
+- One companion active per run
+- Provide passive buffs (HP, ATK, Crit Rate, Crit DMG, Speed)
+- Current companions: Lirien (heal + death block), 
+  Grumoss (shield + damage reduction)
+- Duplicate pulls → Companion Essence for upgrades
 
-👾 Enemy Variety (Palette Swap Technique)
-- Enemy	Type	Description
-- The Glitch	Melee	Fast with low HP. Uses the normal sprite.
-- Void Caster	Ranged	Modulated purple. Stands still and fires magical orbs.
-- Corrupted Guard	Tank	Scaled to 1.5× size, deep red modulation, and performs heavy attacks with screen shake.
+🎰 Gacha System
+- Max pity: 70 pulls
+- 5-star rate: 1% pulls 1-50, +2.5% per pull from 51+
+- Pull 70: Guaranteed 5-star banner highlight
+- Every 10th pull: Guaranteed 4-star
+- 4-star base rate: 6%
 
-📊 Stats
-🧝 Player Stats (Level 1)
-Stat	Value	Description
-HP	100	Standard health pool
-Base ATK	10	Damage per swing
-Crit Rate	5%	Chance to deal critical damage
-Crit DMG	150%	Critical damage multiplier
-Move Speed	300	Pixels per second
-Energy Max	100	Required for Special Skill
-Energy/Hit	20	Energy gained per successful strike
+🛠️ Technical Architecture
+Autoloads:
+- PlayerStats: All player stats + buff system + passive manager hooks
+- PlayerInventory: Gold, shards, items, equipment, companion slots
+- RunState: Run progress, kill tracking, reward tracking, 
+            journal stats, death penalty calculation
+- ModifierSystem: Active modifier tracking, effect application,
+                  kill/hit/heal hooks, enemy stat modification
+- EventSystem: Map event rolling, activation, frost zone physics,
+               spotlight control, enemy stat modification
+- PassiveManager: Companion passive logic (Lirien, Grumoss)
 
-👹 Enemy Stats (Level 1)
-Stat	Value	Description
-HP	30	Dies in 3 normal hits
-Damage	10	Takes 10 hits to kill the player
-Speed	200	Slower than the player
+Components (reusable):
+- StatsComponent: HP, ATK, Speed, Crit, Energy for any character
+- ZoneDetector: Enemy zone awareness, return-home behavior,
+                obstacle avoidance, healing on return
+- SkillManager: Player skill cooldowns and casting
 
-📈 Scaling Formulas
-- Enemy HP Scaling: EnemyHP = BaseHP * (1.15 ^ (RoomNumber - 1))
-- Player Damage Calculation: Damage = BaseATK * (1 + Sum of Bonus Percentages) + FlatBonus
-- Blue Mana Shard Reward: Shards = floor(RoomsCleared / 2) + bonus (Example formula, can be refined)
-
-🛡️ The "Wall" Strategy
-- To prevent players from becoming overpowered and to test their build, Elite Enemies appear every 5 rooms.
-- Elite Mechanics
-  - 2× HP of a normal enemy for that room level.
-  - Stun Shield: The shield must be hit 5 times before the enemy starts taking full damage. This forces players to engage strategically rather than relying on pure DPS.
-
-🏛️ Development Approach (Godot)
-- Since each character on the game no matter if player or enemy will have health, attack, movement speed, attack speed, crit rate, crit dmg, energy -  lets use a reusable component here that will allo us to import in each character and just edit the stats in the inspector for easier maintenance. 
-
-
-Our Global Variables that we currently have:
-1. PlayerInventory (it has the items, gold, shards, and equipments of the player)
-2. PlayerStats (these are the stats of the player, health, attack, speed, critrate, critdamage (there might be missing))
-
-Ways of obtaining shards:
-- by completing a room (first clear 200, already cleared 50)
-- killing boss should now give a 40 shards (elites and normal enemies only gives gold)
-- through opening chests (we dont have that yet)
-
-Modifiers:
-1.	Blood Money – current room (+80% gold drop and 5% hp loss every 3 secs) – WORKING
-2.	Glass Canon – current room (+200% dmg, enemies 30% faster) – WORKING
-3.	Plague Pact – (player and enemies take 5% max hp damage every 3 seconds) – WORKING
-4.	Shielded Fury– current room (Gain 20% max HP as shield per kill. While shielded, deal +10% damage) – WORKING
-5.	Inverted Soul – current room (heal damages, damage heals) – WORKING 
-6.	Worthy Opponents – current room (all enemies are elite but rewards +30%) – WORKING
-7.	Living On Edge – current room (starts at 1hp, gain 10% max hp as shield per kill) – WORKING
-8.	High Stakes – current room (double rewards but boss is guaranteed) – WORKING
-9.	Berserker – whole run (+100% damage but hp is reduced to 30%) – WORKING 
-10.	On a roll – whole run (+7% attack per kill, resets when hit) – WORKING
-11.	Endless Growth – whole run (+1% attack damage per kill, no cap) - WORKING
-12.	Iron Will – whole run (cannot heal for the whole run but +30 shards each room) - WORKING
-
+Key Scenes:
+- res://scenes/globals/ → autoload scripts
+- res://scenes/characters/player/ → player + skills
+- res://scenes/characters/enemies/ → enemy scenes
+- res://scenes/ui/ → HUD, modifier picker, portal choice, 
+                     end run screen, event banner
+- res://scenes/game/rooms/ → room1, room2, room3
+- res://resources/modifiers/ → RunModifier .tres files
+- res://shaders/ → spotlight shader
+- res://scripts/effects/ → visual effect scripts
+                           (rain, snow, dash splash, 
+                            ice hit, water hit ripple)
